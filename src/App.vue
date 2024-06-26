@@ -25,6 +25,7 @@ const { isDarkMode } = useTheme()
 :root {
   --bg-color: #F5F5F0;
   --text-color: #333333;
+  --content-max-width: 1200px;
 }
 
 .dark-theme {
@@ -50,6 +51,10 @@ body {
   min-height: 100vh;
   background-color: var(--bg-color);
   transition: background-color 0.3s ease;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .app-container {
@@ -67,13 +72,23 @@ body {
   align-items: center;
   padding: 2rem;
   width: 100%;
+  max-width: var(--content-max-width);
   margin-left: auto;
   margin-right: auto;
 }
 
 @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
   .content-container {
     padding: 1rem;
+  }
+
+  .theme-toggle {
+    bottom: 10px;
+    right: 10px;
   }
 }
 </style>

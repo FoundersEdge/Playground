@@ -46,10 +46,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100vh;
-    padding: 0 5%;
-    margin-top: -100px;
-    
+    min-height: 100vh;
+    padding: 2rem 5%;
     overflow: hidden;
   }
   
@@ -58,7 +56,7 @@
   }
   
   .title {
-    font-size: 4rem;
+    font-size: clamp(2rem, 8vw, 4rem);
     margin-bottom: 1rem;
   }
   
@@ -77,7 +75,7 @@
   }
   
   .subtitle {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 4vw, 1.5rem);
     margin-bottom: 2rem;
     opacity: 0;
     animation: slideIn 1s forwards;
@@ -97,7 +95,7 @@
   
   .cta-button {
     padding: 12px 24px;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3vw, 1.2rem);
     background-color: #ffffff;
     color: #764ba2;
     border: none;
@@ -118,8 +116,8 @@
   }
   
   .book {
-    width: 200px;
-    height: 60px;
+    width: clamp(150px, 30vw, 200px);
+    height: clamp(40px, 8vw, 60px);
     margin: 10px;
     display: flex;
     align-items: center;
@@ -130,6 +128,7 @@
     transform: rotate(-5deg);
     animation: stackBooks 0.5s forwards;
     opacity: 0;
+    font-size: clamp(0.8rem, 2vw, 1rem);
   }
   
   @keyframes stackBooks {
@@ -151,5 +150,23 @@
   .book:nth-child(2) { animation-delay: 0.4s; }
   .book:nth-child(3) { animation-delay: 0.6s; }
   .book:nth-child(4) { animation-delay: 0.8s; }
-  .book:nth-child(5) { animation-delay: 1s;}
+  .book:nth-child(5) { animation-delay: 1s; }
+  
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+  
+    .book-stack {
+      margin-left: 0;
+      margin-top: 2rem;
+    }
+  
+    .book {
+      margin: 5px auto;
+    }
+  }
   </style>

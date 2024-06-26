@@ -2,12 +2,19 @@
     <nav :class="{ 'scrolled': scrolled, 'dark-mode': isDarkMode }">
       <div class="nav-content">
         <div class="logo">LibraMe</div>
-        <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="hamburger" @click="toggleMenu" :class="{ 'active': isMenuOpen }">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="nav-links-container" :class="{ 'active': isMenuOpen }">
+          <ul class="nav-links">
+            <li><a href="#home" @click="closeMenu">Home</a></li>
+            <li><a href="#about" @click="closeMenu">About</a></li>
+            <li><a href="#services" @click="closeMenu">Services</a></li>
+            <li><a href="#contact" @click="closeMenu">Contact</a></li>
+          </ul>
+        </div>
       </div>
     </nav>
   </template>
@@ -19,9 +26,18 @@
   const { isDarkMode } = useTheme();
   
   const scrolled = ref(false);
+  const isMenuOpen = ref(false);
   
   const handleScroll = () => {
     scrolled.value = window.scrollY > 50;
+  };
+  
+  const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+  };
+  
+  const closeMenu = () => {
+    isMenuOpen.value = false;
   };
   
   onMounted(() => {
@@ -33,36 +49,31 @@
   });
   </script>
   
-  
-  
   <style scoped>
   nav {
     position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1200px;
-    padding: 15px 30px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 5%;
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 50px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
   }
   
   nav.scrolled {
-    top: 15px;
-    padding: 10px 20px;
+    padding: 10px 5%;
     background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 30px;
   }
   
   .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .logo {
@@ -70,6 +81,10 @@
     font-size: 1.5rem;
     color: #333;
     transition: all 0.5s ease;
+  }
+  
+  .nav-links-container {
+    display: flex;
   }
   
   .nav-links {
@@ -133,33 +148,75 @@
     background-color: #fff;
   }
   
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  
+  nav.dark-mode .hamburger span {
+    background-color: #fff;
+  }
+  
   @media (max-width: 768px) {
-    nav {
-      padding: 10px 20px;
+    .hamburger {
+      display: flex;
+      z-index: 2;
     }
   
-    nav.scrolled {
-      padding: 8px 15px;
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
     }
   
-    .logo {
-      font-size: 1.2rem;
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+  
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+  
+    .nav-links-container {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(255, 255, 255, 0.95);
+      transition: right 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .nav-links-container.active {
+      right: 0;
+    }
+  
+    nav.dark-mode .nav-links-container {
+      background-color: rgba(0, 0, 0, 0.95);
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
     }
   
     .nav-links li {
-      margin: 0 10px;
+      margin: 20px 0;
     }
   
     .nav-links a {
-      font-size: 0.9rem;
-    }
-  
-    nav.scrolled .logo {
-      font-size: 1.1rem;
-    }
-  
-    nav.scrolled .nav-links a {
-      font-size: 0.8rem;
+      font-size: 1.2rem;
     }
   }
   </style>
