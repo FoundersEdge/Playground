@@ -159,7 +159,7 @@
     width: 25px;
     height: 3px;
     background-color: #333;
-    margin: 5px 0;
+    margin: 3px 0px;
     transition: all 0.3s ease;
   }
   

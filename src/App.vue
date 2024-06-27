@@ -4,6 +4,7 @@ import ThemeToggle from './components/ThemeToggle.vue'
 import Navbar from './components/Navbar.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import { useTheme } from './composables/useTheme'
+import Testimonials from './components/Testimonials.vue'
 import Hero from './components/Hero.vue'
 
 const { isDarkMode } = useTheme()
@@ -14,6 +15,7 @@ const { isDarkMode } = useTheme()
     <Navbar />
     <main class="content-container">
       <Hero />
+      <Testimonials />
       <TheWelcome />
       <RouterView />
     </main>
